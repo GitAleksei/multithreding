@@ -7,8 +7,8 @@ import java.util.Random;
 import java.util.concurrent.ForkJoinPool;
 
 public class Main {
-    private static final int LENGTH_OF_ARRAY = 1_000;
-    private static final int SEED = 100;
+    private static final int LENGTH_OF_ARRAY = 1_000_000;
+    private static final int SEED = 1_000;
 
     public static void main(String[] args) {
         int[] array = getRandomArray(LENGTH_OF_ARRAY, SEED);
@@ -22,9 +22,9 @@ public class Main {
         System.out.println("Время выполнения, мс: " + Duration.between(start, finnish).toMillis());
 
         System.out.println("\nForkJoinPool: ");
-        start = Instant.now();
         MyRecursiveTask myRecursiveTask = new MyRecursiveTask(0, array.length, array);
         ForkJoinPool forkJoinPool = new ForkJoinPool();
+        start = Instant.now();
         sum = forkJoinPool.invoke(myRecursiveTask);
         System.out.println("Сумма: " + sum);
         System.out.println("Среднее: " + sum / LENGTH_OF_ARRAY);
@@ -37,11 +37,6 @@ public class Main {
     private static long calcSumArray(int[] array) {
         long sum = 0;
         for (int a : array) {
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException ignore) {
-
-            }
             sum += a;
         }
 

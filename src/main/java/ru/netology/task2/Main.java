@@ -13,7 +13,7 @@ public class Main {
 
         List<Callable<Integer>> threads = new ArrayList<>();
         for (int i = 0; i < NUMBER_OF_THREADS; i++) {
-            threads.add(new MyCallable("Поток " + (i + 1)));
+            threads.add(new MyCallable("Поток " + (i + 1), i + 3));
         }
 
         System.out.println("Выполнение всех задач.");

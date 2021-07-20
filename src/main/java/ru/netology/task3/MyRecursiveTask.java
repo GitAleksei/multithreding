@@ -3,6 +3,8 @@ package ru.netology.task3;
 import java.util.concurrent.RecursiveTask;
 
 public class MyRecursiveTask extends RecursiveTask<Integer> {
+    public static final int LENGTH_OF_SUB = 10_000;
+
     final int[] array;
     int start;
     int end;
@@ -15,17 +17,15 @@ public class MyRecursiveTask extends RecursiveTask<Integer> {
 
     @Override
     protected Integer compute() {
-        try {
-            Thread.sleep(1);
-        } catch (InterruptedException ignore) {
-
-        }
         final int diff = end - start;
-        switch (diff) {
-            case 0: return 0;
-            case 1: return array[start];
-            case 2: return array[start] + array[start + 1];
-            default: return forkTasksAndGetResult();
+        int sum = 0;
+        if (diff < LENGTH_OF_SUB) {
+            for (int i = 0; i < diff; i++) {
+                sum += array[start + i];
+            }
+            return sum;
+        } else {
+            return forkTasksAndGetResult();
         }
     }
 

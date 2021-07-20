@@ -3,17 +3,18 @@ package ru.netology.task2;
 import java.util.concurrent.Callable;
 
 public class MyCallable extends Thread implements Callable<Integer> {
-    private static final int NUMBER_OF_MESSAGE = 3;
+    private int numberOfMessage = 3;
 
-    public MyCallable(String name) {
+    public MyCallable(String name, int numberOfMessage) {
         super(name);
+        this.numberOfMessage = numberOfMessage;
     }
 
     @Override
     public Integer call() {
-        for (int i = 0; i < NUMBER_OF_MESSAGE; i++) {
+        for (int i = 0; i < numberOfMessage; i++) {
             System.out.println("Я " + getName());
         }
-        return NUMBER_OF_MESSAGE;
+        return numberOfMessage;
     }
 }
